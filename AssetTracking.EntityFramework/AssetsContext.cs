@@ -7,7 +7,6 @@ internal class AssetsContext: DbContext
 {
     public DbSet<Asset> Assets { get; set; }
     public DbSet<Category> Categories { get; set; }
-
     public DbSet<Office> Offices { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -75,7 +74,7 @@ internal class AssetsContext: DbContext
                 Model = "8",
                 PurchaseDate = new DateOnly(2021, 10, 13),
                 Price = 970
-                
+
             },
             new Asset
             {

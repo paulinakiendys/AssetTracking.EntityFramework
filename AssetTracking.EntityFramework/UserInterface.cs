@@ -1,4 +1,5 @@
 ﻿using AssetTracking.EntityFramework.Models;
+using AssetTracking.EntityFramework.Models.DTOs;
 using AssetTracking.EntityFramework.Services;
 using Spectre.Console;
 using static AssetTracking.EntityFramework.Enums;
@@ -142,13 +143,15 @@ static internal class UserInterface
                 case MainMenuOptions.ManageAssets:
                     AssetsMenu();
                     break;
+                case MainMenuOptions.GenerateReport:
+                    ReportService.CreateMonthlyReport();
+                    break;
                 case MainMenuOptions.Quit:
                     Console.WriteLine("Thank you for using this application");
                     isAppRunning = false;
                     break;
             }
         }
-
     }
 
     static internal void DisplayCategoriesTable(List<Category> categories)
@@ -309,6 +312,29 @@ Local price today: {localPriceToday}");
         panel.Padding = new Padding(2, 2, 2, 2);
 
         AnsiConsole.Write(panel);
+
+        Console.WriteLine("Enter any key to go back");
+        Console.ReadLine();
+        Console.Clear();
+    }
+
+    internal static void ShowReportByMonth(List<MonthlyReportDTO> report)
+    {
+        var table = new Table();
+        table.AddColumn("Month");
+        table.AddColumn("Total value in USD");
+        table.AddColumn("Total quantity");
+
+        foreach (var item in report)
+        {
+            table.AddRow(
+                item.Month,
+                item.TotalValue.ToString(),
+                item.TotalQuantity.ToString()
+                );
+        }
+
+        AnsiConsole.Write(table);
 
         Console.WriteLine("Enter any key to go back");
         Console.ReadLine();

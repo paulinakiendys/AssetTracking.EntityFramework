@@ -12,6 +12,8 @@ internal class Enums
         ManageOffices,
         [Description("Manage assets")]
         ManageAssets,
+        [Description("Generate monthly report")]
+        GenerateReport,
         [Description("Quit")]
         Quit
     }
