@@ -1,4 +1,5 @@
 ﻿using AssetTracking.EntityFramework.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AssetTracking.EntityFramework.Controllers;
 
@@ -21,7 +22,10 @@ internal class OfficeController
     internal static List<Office> GetOffices()
     {
         using var db = new AssetsContext();
-        var offices = db.Offices.ToList();
+        var offices = db.Offices
+            .Include(o => o.Assets)
+            .ThenInclude(a => a.Category)
+            .ToList();
         return offices;
     }
 

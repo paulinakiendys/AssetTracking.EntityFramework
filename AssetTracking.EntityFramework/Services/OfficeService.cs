@@ -33,6 +33,12 @@ internal class OfficeService
         OfficeController.UpdateOffice(office);
     }
 
+    internal static void ShowOffice()
+    {
+        var office = GetOfficeOptionInput();
+        UserInterface.DisplayOfficePanel(office);
+    }
+
     internal static void ShowAllOffices()
     {
         var offices = OfficeController.GetOffices();

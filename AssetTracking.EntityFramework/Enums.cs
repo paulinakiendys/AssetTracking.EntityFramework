@@ -40,6 +40,8 @@ internal class Enums
         DeleteOffice,
         [Description("Update an office")]
         UpdateOffice,
+        [Description("View a specific office")]
+        ShowOffice,
         [Description("View all offices")]
         ShowAllOffices,
         [Description("Go back")]

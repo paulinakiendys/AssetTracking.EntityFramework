@@ -68,6 +68,9 @@ static internal class UserInterface
                 case OfficeMenuOptions.UpdateOffice:
                     OfficeService.UpdateOffice();
                     break;
+                case OfficeMenuOptions.ShowOffice:
+                    OfficeService.ShowOffice();
+                    break;
                 case OfficeMenuOptions.ShowAllOffices:
                     OfficeService.ShowAllOffices();
                     break;
@@ -261,6 +264,21 @@ Number of assets: {category.Assets.Count()}");
         AnsiConsole.Write(panel);
 
         DisplayAssetsTable(category.Assets);
+    }
+
+    internal static void DisplayOfficePanel(Office office)
+    {
+        var panel = new Panel(@$"Id: {office.OfficeId}
+Country: {office.Country}
+Currency: {office.Currency}
+Number of assets: {office.Assets.Count()}");
+
+        panel.Header = new PanelHeader("Office information");
+        panel.Padding = new Padding(2, 2, 2, 2);
+
+        AnsiConsole.Write(panel);
+
+        DisplayAssetsTable(office.Assets);
     }
 
     internal static void DisplayAssetPanel(Asset asset)
