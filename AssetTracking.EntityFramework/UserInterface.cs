@@ -1,5 +1,4 @@
-﻿using AssetTracking.EntityFramework.Controllers;
-using AssetTracking.EntityFramework.Models;
+﻿using AssetTracking.EntityFramework.Models;
 using AssetTracking.EntityFramework.Services;
 using Spectre.Console;
 using static AssetTracking.EntityFramework.Enums;
@@ -8,74 +7,147 @@ namespace AssetTracking.EntityFramework;
 
 static internal class UserInterface
 {
-    
-    
+    static internal void CategoriesMenu()
+    {
+        var isCategoriesMenuRunning = true;
+        while (isCategoriesMenuRunning)
+        {
+            Console.Clear();
+
+            var option = AnsiConsole.Prompt(
+                new SelectionPrompt<CategoryMenuOptions>()
+                    .Title("Select an option:")
+                    .UseConverter(opt => EnumExtensions.GetEnumDescription(opt))
+                    .AddChoices(Enum.GetValues(typeof(CategoryMenuOptions)).Cast<CategoryMenuOptions>()));
+
+            switch (option)
+            {
+                case CategoryMenuOptions.AddCategory:
+                    CategoryService.AddCategory();
+                    break;
+                case CategoryMenuOptions.DeleteCategory:
+                    CategoryService.DeleteCategory();
+                    break;
+                case CategoryMenuOptions.UpdateCategory:
+                    CategoryService.UpdateCategory();
+                    break;
+                case CategoryMenuOptions.ShowCategory:
+                    CategoryService.ShowCategory();
+                    break;
+                case CategoryMenuOptions.ShowAllCategories:
+                    CategoryService.ShowAllCategories();
+                    break;
+                case CategoryMenuOptions.GoBack:
+                    isCategoriesMenuRunning = false;
+                    break;
+            }
+        }
+    }
+
+    static internal void OfficesMenu()
+    {
+        var isOfficesMenuRunning = true;
+        while (isOfficesMenuRunning)
+        {
+            Console.Clear();
+
+            var option = AnsiConsole.Prompt(
+                new SelectionPrompt<OfficeMenuOptions>()
+                    .Title("Select an option:")
+                    .UseConverter(opt => EnumExtensions.GetEnumDescription(opt))
+                    .AddChoices(Enum.GetValues(typeof(OfficeMenuOptions)).Cast<OfficeMenuOptions>()));
+
+            switch (option)
+            {
+                case OfficeMenuOptions.AddOffice:
+                    OfficeService.AddOffice();
+                    break;
+                case OfficeMenuOptions.DeleteOffice:
+                    OfficeService.DeleteOffice();
+                    break;
+                case OfficeMenuOptions.UpdateOffice:
+                    OfficeService.UpdateOffice();
+                    break;
+                case OfficeMenuOptions.ShowAllOffices:
+                    OfficeService.ShowAllOffices();
+                    break;
+                case OfficeMenuOptions.GoBack:
+                    isOfficesMenuRunning = false;
+                    break;
+            }
+        }
+    }
+
+    static internal void AssetsMenu()
+    {
+        var isAssetsMenuRunning = true;
+        while (isAssetsMenuRunning)
+        {
+            Console.Clear();
+
+            var option = AnsiConsole.Prompt(
+                new SelectionPrompt<AssetMenuOptions>()
+                    .Title("Select an option:")
+                    .UseConverter(opt => EnumExtensions.GetEnumDescription(opt))
+                    .AddChoices(Enum.GetValues(typeof(AssetMenuOptions)).Cast<AssetMenuOptions>()));
+
+            switch (option)
+            {
+                case AssetMenuOptions.AddAsset:
+                    AssetService.AddAsset();
+                    break;
+                case AssetMenuOptions.DeleteAsset:
+                    AssetService.DeleteAsset();
+                    break;
+                case AssetMenuOptions.UpdateAsset:
+                    AssetService.UpdateAsset();
+                    break;
+                case AssetMenuOptions.ShowAsset:
+                    AssetService.ShowAsset();
+                    break;
+                case AssetMenuOptions.ShowAllAssets:
+                    AssetService.ShowAllAssets();
+                    break;
+                case AssetMenuOptions.GoBack:
+                    isAssetsMenuRunning = false;
+                    break;
+            }
+        }
+    }
+
     static internal void MainMenu()
     {
- 
         var isAppRunning = true;
         while (isAppRunning)
         {
             Console.Clear();
 
             var option = AnsiConsole.Prompt(
-                new SelectionPrompt<MenuOptions>()
+                new SelectionPrompt<MainMenuOptions>()
                     .Title("Select an option:")
                     .UseConverter(opt => EnumExtensions.GetEnumDescription(opt))
-                    .AddChoices(Enum.GetValues(typeof(MenuOptions)).Cast<MenuOptions>()));
+                    .AddChoices(Enum.GetValues(typeof(MainMenuOptions)).Cast<MainMenuOptions>()));
 
             switch (option)
             {
-                case MenuOptions.AddCategory:
-                    CategoryService.AddCategory();
+                case MainMenuOptions.ManageCategories:
+                    CategoriesMenu();
                     break;
-                case MenuOptions.DeleteCategory:
-                    CategoryService.DeleteCategory();
+                case MainMenuOptions.ManageOffices:
+                    OfficesMenu();
                     break;
-                case MenuOptions.UpdateCategory:
-                    CategoryService.UpdateCategory();
+                case MainMenuOptions.ManageAssets:
+                    AssetsMenu();
                     break;
-                case MenuOptions.ShowCategory:
-                    CategoryService.ShowCategory();
-                    break;
-                case MenuOptions.ShowAllCategories:
-                    CategoryService.ShowAllCategories();
-                    break;
-                case MenuOptions.AddOffice:
-                    OfficeService.AddOffice();
-                    break;
-                case MenuOptions.DeleteOffice:
-                    OfficeService.DeleteOffice();
-                    break;
-                case MenuOptions.UpdateOffice:
-                    OfficeService.UpdateOffice();
-                    break;
-                case MenuOptions.ShowAllOffices:
-                    OfficeService.ShowAllOffices();
-                    break;
-                case MenuOptions.AddAsset:
-                    AssetService.AddAsset();
-                    break;
-                case MenuOptions.DeleteAsset:
-                    AssetService.DeleteAsset();
-                    break;
-                case MenuOptions.UpdateAsset:
-                    AssetService.UpdateAsset();
-                    break;
-                case MenuOptions.ShowAsset:
-                    AssetService.ShowAsset();
-                    break;
-                case MenuOptions.ShowAllAssets:
-                    AssetService.ShowAllAssets();
-                    break;
-                case MenuOptions.Quit:
-                    AssetController.Quit();
+                case MainMenuOptions.Quit:
+                    Console.WriteLine("Thank you for using this application");
                     isAppRunning = false;
                     break;
             }
         }
 
     }
+
     static internal void DisplayCategoriesTable(List<Category> categories)
     {
         var table = new Table();
@@ -91,7 +163,7 @@ static internal class UserInterface
 
         AnsiConsole.Write(table);
 
-        Console.WriteLine("Enter any key to go to main menu");
+        Console.WriteLine("Enter any key to go back");
         Console.ReadLine();
         Console.Clear();
     }
@@ -113,7 +185,7 @@ static internal class UserInterface
 
         AnsiConsole.Write(table);
 
-        Console.WriteLine("Enter any key to go to main menu");
+        Console.WriteLine("Enter any key to go back");
         Console.ReadLine();
         Console.Clear();
     }
@@ -151,7 +223,8 @@ static internal class UserInterface
             if (asset.Office.Currency == "EUR")
             {
                 localPriceToday = asset.Price * usdToEur;
-            } else if (asset.Office.Currency == "SEK")
+            }
+            else if (asset.Office.Currency == "SEK")
             {
                 localPriceToday = asset.Price * usdToSek;
             }
@@ -171,15 +244,13 @@ static internal class UserInterface
 
         AnsiConsole.Write(table);
 
-        Console.WriteLine("Enter any key to go to main menu");
+        Console.WriteLine("Enter any key to go back");
         Console.ReadLine();
         Console.Clear();
     }
 
     internal static void DisplayCategoryPanel(Category category)
     {
-       
-
         var panel = new Panel(@$"Id: {category.CategoryId}
 Name: {category.Name}
 Number of assets: {category.Assets.Count()}");
@@ -190,13 +261,9 @@ Number of assets: {category.Assets.Count()}");
         AnsiConsole.Write(panel);
 
         DisplayAssetsTable(category.Assets);
-
-        Console.WriteLine("Enter any key to go to main menu");
-        Console.ReadLine();
-        Console.Clear();
     }
 
-internal static void DisplayAssetPanel(Asset asset)
+    internal static void DisplayAssetPanel(Asset asset)
     {
         double usdToSek = 10.635816;
         double usdToEur = 0.92290012;
@@ -225,7 +292,7 @@ Local price today: {localPriceToday}");
 
         AnsiConsole.Write(panel);
 
-        Console.WriteLine("Enter any key to go to main menu");
+        Console.WriteLine("Enter any key to go back");
         Console.ReadLine();
         Console.Clear();
     }

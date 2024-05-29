@@ -40,11 +40,6 @@ internal class AssetController
         return assets;
     }
 
-    internal static void Quit()
-    {
-        Console.WriteLine("Thank you for using this application");
-    }
-
     internal static void UpdateAsset(Asset asset)
     {
         using var db = new AssetsContext();

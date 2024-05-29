@@ -4,7 +4,19 @@ namespace AssetTracking.EntityFramework;
 
 internal class Enums
 {
-    internal enum MenuOptions
+    internal enum MainMenuOptions
+    {
+        [Description("Manage categories")]
+        ManageCategories,
+        [Description("Manage offices")]
+        ManageOffices,
+        [Description("Manage assets")]
+        ManageAssets,
+        [Description("Quit")]
+        Quit
+    }
+
+    internal enum CategoryMenuOptions
     {
         [Description("Add a category")]
         AddCategory,
@@ -16,6 +28,12 @@ internal class Enums
         ShowCategory,
         [Description("View all categories")]
         ShowAllCategories,
+        [Description("Go back")]
+        GoBack
+    }
+
+    internal enum OfficeMenuOptions
+    {
         [Description("Add an office")]
         AddOffice,
         [Description("Delete an office")]
@@ -24,6 +42,12 @@ internal class Enums
         UpdateOffice,
         [Description("View all offices")]
         ShowAllOffices,
+        [Description("Go back")]
+        GoBack
+    }
+
+    internal enum AssetMenuOptions
+    {
         [Description("Add an asset")]
         AddAsset,
         [Description("Delete an asset")]
@@ -34,8 +58,8 @@ internal class Enums
         ShowAsset,
         [Description("View all assets")]
         ShowAllAssets,
-        [Description("Quit")]
-        Quit
+        [Description("Go back")]
+        GoBack
     }
 
 }
