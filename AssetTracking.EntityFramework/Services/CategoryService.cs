@@ -29,6 +29,12 @@ internal class CategoryService
         CategoryController.UpdateCategory(category);
     }
 
+    internal static void ShowCategory()
+    {
+        var category = GetCategoryOptionInput();
+        UserInterface.DisplayCategoryPanel(category);
+    }
+
     internal static void ShowAllCategories()
     {
         var categories = CategoryController.GetCategories();

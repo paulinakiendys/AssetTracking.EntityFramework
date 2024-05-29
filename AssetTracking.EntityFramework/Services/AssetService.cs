@@ -51,7 +51,7 @@ internal class AssetService
     internal static void ShowAsset()
     {
         var asset = GetAssetOptionInput();
-        UserInterface.DisplayAssetTable(asset);
+        UserInterface.DisplayAssetPanel(asset);
     }
 
     internal static void ShowAllAssets()

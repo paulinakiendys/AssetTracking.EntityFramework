@@ -12,6 +12,8 @@ internal class Enums
         DeleteCategory,
         [Description("Update a category")]
         UpdateCategory,
+        [Description("View a specific category")]
+        ShowCategory,
         [Description("View all categories")]
         ShowAllCategories,
         [Description("Add an office")]

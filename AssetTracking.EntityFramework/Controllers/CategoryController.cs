@@ -1,4 +1,5 @@
 ﻿using AssetTracking.EntityFramework.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AssetTracking.EntityFramework.Controllers;
 
@@ -21,7 +22,10 @@ internal class CategoryController
     internal static List<Category> GetCategories()
     {
         using var db = new AssetsContext();
-        var categories = db.Categories.ToList();
+        var categories = db.Categories
+            .Include(c => c.Assets)
+            .ThenInclude(a => a.Office)
+            .ToList();
         return categories;
     }
 

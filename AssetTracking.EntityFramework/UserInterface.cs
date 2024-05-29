@@ -35,6 +35,9 @@ static internal class UserInterface
                 case MenuOptions.UpdateCategory:
                     CategoryService.UpdateCategory();
                     break;
+                case MenuOptions.ShowCategory:
+                    CategoryService.ShowCategory();
+                    break;
                 case MenuOptions.ShowAllCategories:
                     CategoryService.ShowAllCategories();
                     break;
@@ -173,7 +176,27 @@ static internal class UserInterface
         Console.Clear();
     }
 
-    internal static void DisplayAssetTable(Asset asset)
+    internal static void DisplayCategoryPanel(Category category)
+    {
+       
+
+        var panel = new Panel(@$"Id: {category.CategoryId}
+Name: {category.Name}
+Number of assets: {category.Assets.Count()}");
+
+        panel.Header = new PanelHeader("Category information");
+        panel.Padding = new Padding(2, 2, 2, 2);
+
+        AnsiConsole.Write(panel);
+
+        DisplayAssetsTable(category.Assets);
+
+        Console.WriteLine("Enter any key to go to main menu");
+        Console.ReadLine();
+        Console.Clear();
+    }
+
+internal static void DisplayAssetPanel(Asset asset)
     {
         double usdToSek = 10.635816;
         double usdToEur = 0.92290012;
